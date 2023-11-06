@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = 10f;
     public float rayDist = 10f;
     public LayerMask interactableLayerMask;
+    public LayerMask keypadLayerMask;
     public GameObject seenObject;
     public bool mouseRay;
 
@@ -60,37 +61,15 @@ public class PlayerController : MonoBehaviour
         
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, rayDist, interactableLayerMask) && !mouseRay)
         {
-            //interactScript lastInteractedScript = null;
             seenObject = hit.collider.gameObject;
-            //interactedScript = hit.collider.GetComponent<interactScript>();
-            //if (interactedScript != null)
-            //{
-            //    interactedScript.isLookedAt = true;
-            //}
-            
-            //if (hit.collider.gameObject != lastHit.collider.gameObject)
-            //{
-            //    lastInteractedScript.isLookedAt = false;
-            //    interactedScript = null;
-            //    lastInteractedScript = null;
-            //}
-            //lastHit = hit;
-            //lastInteractedScript = interactedScript;
         }
-        else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit) && mouseRay)
+        else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, rayDist, keypadLayerMask) && mouseRay)
         {
             seenObject = hit.collider.gameObject;
         }
         else
-        {
-            
+        { 
             seenObject = null;
-            
-            //if (interactedScript != null)
-            //{
-            //    interactedScript.isLookedAt = false;
-            //}
-            //interactedScript = null;
         }
         Debug.DrawLine(playerCamera.transform.position, playerCamera.transform.position + playerCamera.transform.forward * rayDist);
         

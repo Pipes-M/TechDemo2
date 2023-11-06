@@ -18,6 +18,7 @@ public class interactScript : MonoBehaviour
     [HideInInspector] public GameObject mainCanvas;
     [HideInInspector] public HUDscript hudScript;
     private string starttoolTipT;
+    private bool doOnce;
 
 
 
@@ -52,20 +53,28 @@ public class interactScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && keyNumb == "")
             {
                 isInteracted = true;
+                
             }
             if (Input.GetMouseButtonDown(0) && keyNumb != "")
             {
                 mainKeyPad.inputCode(keyNumb);
                 isInteracted = true;
+                
             }
             hudScript.textMesh.enabled = true;
             hudScript.tooltipText = starttoolTipT;
+            doOnce = true;
         }
         else
         {
             GetComponent<Outline>().enabled = false;
             isInteracted = false;
-            hudScript.textMesh.enabled = false;
+            if (doOnce)
+            {
+                hudScript.textMesh.enabled = false;
+                doOnce = false;
+            }
+            
         }
         //Debug.Log(playerScript.seenObject);
         //GetComponent<Outline>().enabled = isLookedAt;

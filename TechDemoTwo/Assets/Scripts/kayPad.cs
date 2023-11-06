@@ -23,6 +23,7 @@ public class kayPad : MonoBehaviour
     public Material incorrectCol;
     public GameObject LED;
     private bool canInput = true;
+    private bool doOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +37,11 @@ public class kayPad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<interactScript>().isInteracted)
+        if (gameObject.GetComponent<interactScript>().isInteracted && doOnce)
         {
+            doOnce = false;
             codePlayerLock(true);
+            
         }
         if (inputedCode.Length == 0)
         {
@@ -48,7 +51,7 @@ public class kayPad : MonoBehaviour
         {
             codeScreen.text = inputedCode;
         }
-
+        
     }
 
     public void codePlayerLock(bool locked)
@@ -65,6 +68,7 @@ public class kayPad : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Confined;
             UnityEngine.Cursor.visible = true;
             playerScript.mouseRay = true;
+            
         }
         else
         {
@@ -73,6 +77,7 @@ public class kayPad : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
             playerScript.mouseRay = false;
+            doOnce = true;
         }
     }
 
