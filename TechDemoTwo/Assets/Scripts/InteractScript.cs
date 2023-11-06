@@ -37,6 +37,10 @@ public class interactScript : MonoBehaviour
         {
             starttoolTipT = "Pick up";
         }
+        else if (tooltipType == 3)
+        {
+            starttoolTipT = "Read";
+        }
         else
         {
             starttoolTipT = "Interact";
